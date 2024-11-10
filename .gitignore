@@ -1,0 +1,9 @@
+# macOS system files
+._*
+.DS_Store
+.AppleDouble
+.LSOverride
+docker/config/rndc.key
+*.key
+docker/cache
+docker/config/zones/ib.bigbank.com.zone.jnl

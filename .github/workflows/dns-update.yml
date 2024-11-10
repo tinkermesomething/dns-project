@@ -1,0 +1,67 @@
+name: DNS Records Update
+
+on:
+  push:
+    paths:
+      - 'data/dns-records.csv'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate-and-update:
+    runs-on: self-hosted
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          clean: false
+
+      - name: Install DNS utilities
+        run: |
+          if [ "$(uname)" = "Darwin" ]; then
+            brew install bind
+          else
+            sudo apt-get update
+            sudo apt-get install -y dnsutils bind9utils
+          fi
+
+      - name: Check Python version and DNS utils
+        run: |
+          python3 --version
+          python3 -c "import platform; print(f'Architecture: {platform.machine()}')"
+          which dig
+          which nsupdate
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r scripts/requirements.txt
+
+      - name: Debug Repository Content
+        run: |
+          echo "Current directory: $PWD"
+          echo "Repository contents:"
+          ls -la
+          echo "Docker config directory:"
+          ls -la docker/config/
+
+      - name: Validate CSV
+        run: |
+          python3 scripts/validate_csv.py data/dns-records.csv
+
+      - name: Update DNS Records
+        env:
+          DNS_SERVER: "172.20.0.2"
+          TSIG_KEY: "/etc/bind/rndc.key"
+          CSV_FILE: "data/dns-records.csv"
+        run: |
+          echo "Testing DNS server connectivity..."
+          dig @${DNS_SERVER} version.bind chaos txt
+          echo "Verifying key file..."
+          ls -l ${TSIG_KEY}
+          echo "Key file contents:"
+          sudo cat ${TSIG_KEY}
+          echo "Running update script..."
+          python3 scripts/update_dns.py

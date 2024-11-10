@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  bind9:
+    image: mjkaye/bind9-alpine:latest-arm64
+    container_name: dns-server
+    platform: linux/arm64
+    environment:
+      - TZ=UTC
+      - BIND9_USER=bind
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    volumes:
+      - ./config:/etc/bind
+      - ./cache:/var/cache/bind
+      - ./records:/var/lib/bind
+      - ./config/entrypoint.sh:/entrypoint.sh
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]
+    networks:
+      dns_net:
+        ipv4_address: 172.20.0.2
+
+  github-runner:
+    image: myoung34/github-runner:latest
+    container_name: github-runner
+    environment:
+      - REPO_URL=${GITHUB_REPO_URL}
+      - RUNNER_NAME=${GITHUB_RUNNER_NAME}
+      - RUNNER_TOKEN=${GITHUB_RUNNER_TOKEN}
+      - RUNNER_WORKDIR=/tmp/github-runner-dns
+      - LABELS=${GITHUB_RUNNER_LABELS}
+      - ORG_NAME=${GITHUB_OWNER}
+      - REPO_NAME=${GITHUB_REPOSITORY}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/etc/bind:ro
+    networks:
+      dns_net:
+        ipv4_address: 172.20.0.3
+
+networks:
+  dns_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
