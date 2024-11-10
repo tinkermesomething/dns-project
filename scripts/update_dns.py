@@ -69,7 +69,7 @@ class DNSUpdater:
             return {}
 
     def read_csv_records(self) -> Dict[str, str]:
-        # Read records from CSV file
+        # Read records from the CSV file
         records = {}
         try:
             logging.info(f"Reading CSV file: {self.csv_file}")
@@ -130,7 +130,7 @@ class DNSUpdater:
             logging.error(f"Error updating {fqdn}: {str(e)}")
             return False
     
-    # Synchronize DNS records with CSV file
+    # Synchronize DNS records with the CSV file
     def sync_records(self):
         logging.info("Starting DNS record synchronization")
         # Get current and desired states

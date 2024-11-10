@@ -2,13 +2,13 @@ import csv
 import sys
 
 def validate_csv(file_path):
-        # Validates a CSV file containing DNS records. Returns True if valid, False otherwise.
+        # Validates the CSV file containing DNS records. Returns True if valid, False otherwise.
     try:
          # Open and read the CSV file
         with open(file_path, mode='r') as csv_file:
             csv_reader = csv.reader(csv_file)
             seen_fqdns = set()
-             # Process each row in the CSV
+             # Process each row in the CSV file
             for row in csv_reader:
                 fqdn, ipv4 = row[0], row[1]
                 
