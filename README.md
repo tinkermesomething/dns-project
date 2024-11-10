@@ -46,7 +46,7 @@ Furthermore, submit a diagram that explains the solution along with the code bef
 ├── scripts/
 │   ├── validate_csv.py            # Python script to validate CSV
 │   ├── update_dns.py              # Python script to update DNS records
-│   └── requirements.txt           # Updated Python dependencies
+│   └── requirements.txt           # Python dependencies
 │
 ├── data/
 │   └── dns-records.csv            # CSV file containing DNS records
