@@ -1,8 +1,8 @@
 import csv
 import sys
 
+# Validates the CSV file containing DNS records. Returns True if valid, False otherwise.
 def validate_csv(file_path):
-        # Validates the CSV file containing DNS records. Returns True if valid, False otherwise.
     try:
          # Open and read the CSV file
         with open(file_path, mode='r') as csv_file:
