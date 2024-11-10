@@ -63,5 +63,5 @@ jobs:
           ls -l ${TSIG_KEY}
           echo "Key file contents:"
           sudo cat ${TSIG_KEY}
-          echo "Running update script..."
+          echo "Running the DNS update script..."
           python3 scripts/update_dns.py
