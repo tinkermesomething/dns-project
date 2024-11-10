@@ -15,8 +15,8 @@ logging.basicConfig(
     ]
 )
 
+# Finds the full path of system commands dig and nsupdate
 def get_command_path(command: str) -> str:
-    # Finds the full path of system commands dig and nsupdate
     try:
         result = subprocess.run(['which', command], 
                               capture_output=True, 
@@ -37,9 +37,9 @@ class DNSUpdater:
         self.dns_server = dns_server
         self.zone = "ib.bigbank.com"
         logging.info(f"Initialized DNSUpdater with server: {dns_server}, key: {tsig_key}")
-
+        
+     # Read current DNS records using dig
     def read_current_records(self) -> Dict[str, str]:
-        # Read current DNS records using dig
         try:
             dig_path = get_command_path('dig')
             # Execute dig command for zone transfer
@@ -68,8 +68,8 @@ class DNSUpdater:
             logging.error(f"Error reading current records: {e}")
             return {}
 
+    # Read records from the CSV file
     def read_csv_records(self) -> Dict[str, str]:
-        # Read records from the CSV file
         records = {}
         try:
             logging.info(f"Reading CSV file: {self.csv_file}")
@@ -87,8 +87,8 @@ class DNSUpdater:
             logging.error(f"Error reading CSV file: {e}")
             return {}
 
+    # Update a single DNS record using nsupdate
     def update_record(self, fqdn: str, ipv4: str) -> bool:
-        # Update a single DNS record using nsupdate
         try:
             # Prepare nsupdate command
             nsupdate_path = get_command_path('nsupdate')
