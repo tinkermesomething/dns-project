@@ -41,7 +41,7 @@ Furthermore, submit a diagram that explains the solution along with the code bef
 │
 ├── .github/
 │   └── workflows/
-│       └── dns-update.yml          # GitHub Actions workflow file
+│       └── dns-update.yml         # GitHub Actions workflow file
 │
 ├── scripts/
 │   ├── validate_csv.py            # Python script to validate CSV
@@ -58,7 +58,7 @@ Furthermore, submit a diagram that explains the solution along with the code bef
 │   │   ├── rndc.key               # TSIG key file
 |   |   ├── endpoint.sh            # Script to create the TSIG key file inside the bind9 DNS server if it's not present 
 │   │   └── zones/
-│   │       └── ib.bigbank.com.zone  # DNS zone file
+│   │       └── ib.bigbank.com.zone     # DNS zone file
 │   │
 │   ├── cache/                     # BIND9 cache directory (mounted in container)
 │   ├── records/                   # BIND9 records directory (mounted in container)
