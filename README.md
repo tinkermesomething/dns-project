@@ -35,6 +35,8 @@ Furthermore, submit a diagram that explains the solution along with the code bef
 4. DNS Update Process: If the CSV file is valid, the workflow proceeds to update the DNS records using the update_dns.py script.
 5. BIND Server Update: The script communicates with the BIND9 container using a TSIG key to securely update the DNS records.
 
+*** This project was made to run on arm chip so changes will be needed to run on x86, specifically, in dns-update.yml and docker-compose.yml 
+
 ### Folder Structure ###
 ```
 / (Root repository)
