@@ -2,9 +2,7 @@ machine1.mgmt.ib.bigbank.com, 172.16.1.50
 machine2.mgmt.ib.bigbank.com, 172.16.1.52
 machine1.ipmi.ib.bigbank.com, 172.16.20.50
 machine2.ipmi.ib.bigbank.com, 172.16.20.52
-machine3.ipmi.ib.bigbank.com, 172.16.20.53
 machine1.ib.bigbank.com, 10.33.0.50
 machine2.ib.bigbank.com, 10.33.0.52
-machine3.ib.bigbank.com, 10.33.0.53
 netapp1.svm.ib.bigbank.com, 192.168.47.11
 netapp2.svm.ib.bigbank.com, 192.168.47.12
